@@ -8,9 +8,9 @@
     "email": "shanlh841271734@live.com"
   },
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vite",
     "build": "rollup -c rollup.config.js",
-    "lint": "vue-cli-service lint",
+    "lint": "lint",
     "release": "bash release.sh",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
@@ -28,7 +28,8 @@
   "homepage": "https://github.com/shanlh/vue-tinder",
   "license": "MIT",
   "dependencies": {
-    "vue": "^2.6.10"
+    "vite": "^5.4.8",
+    "vue": "^3.5.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",
