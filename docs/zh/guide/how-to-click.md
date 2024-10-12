@@ -9,9 +9,9 @@
 ``` html
 <vue-tinder ref="tinder">...</vue-tinder>
 <div class="btns">
-  <img src="~img/nope.png" @click="decide('nope')">
-  <img src="~img/super-like.png" @click="decide('super')">
-  <img src="~img/like.png" @click="decide('like')">
+  <img src="img/nope.png" @click="decide('nope')">
+  <img src="img/super-like.png" @click="decide('super')">
+  <img src="img/like.png" @click="decide('like')">
 </div>
 ```
 

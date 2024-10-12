@@ -1,16 +1,13 @@
----
-home: true
-# heroImage: /hero.png
-heroText: VueTinder
-tagline: Have your own Tinder.
-actionText: Getting Started →
-actionLink: /guide/
-features:
-- title: Made With ❤️
-  details: Strict detail requirements, under the slow motion, can better see the ease of transition animation, no matter how fast and complicated the operation does not have to worry about the problem.
-- title: Full Functioning
-  details: In addition to the original left, right, and up/down-sliding, a new fallback function has been added, which also supports multiple rollbacks at the same time.
-- title: Rich Configuration
-  details: Adjustable sliding, spacing parameters and CSS units for a more flexible and adaptable layout.
-footer: MIT Licensed | Copyright © 2017-present JohnnyDan
----
+# Upgrade to Vue3 and TypeScript Roadmap
+
+
+1. diff
+
+`queue-handle.js` has `diff` function which mutates a list.
+This is the entry point which gets activated once a list of images are provided.
+Solution: convert to a composable that returns a new list,  a queue handle mechanism and a combine it with open-methods.js.
+
+It should also return a ref to a `rewindKeys` list and all of the other reactive data in a single object.
+
+
+

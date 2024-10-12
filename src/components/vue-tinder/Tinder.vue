@@ -3,70 +3,25 @@ import TinderCard from './TinderCard.vue'
 import { initStatus } from './status'
 import { computed, onBeforeMount, onMounted, reactive, watch } from "vue";
 
+
 let resizeTimer
 
-const {queue, allowDown} = defineProps({
-  // TODO: 考虑添加一个不强制渲染的配置
-  allowSuper: {
-    type: Boolean,
-    default: true
-  },
-  allowDown: {
-    type: Boolean,
-    default: false
-  },
-  queue: {
-    type: Array,
-    default: () => []
-  },
-  keyName: {
-    type: String,
-    default: 'key'
-  },
-  /**
-   * 横向移动直至消失时，移动距离占卡片 "一半宽度" 的比例
-   * 因为是占卡片一半宽度的比例，所以默认 0.5 便相当于 1/4（0.5*0.5）卡片宽度
-   */
-  pointerThreshold: {
-    type: Number,
-    default: 0.5
-  },
-  /**
-   * 向上移动直至消失时，移动距离占卡片高度的比例
-   * 默认移动 1/2 高度便符合移出条件
-   */
-  superThreshold: {
-    type: Number,
-    default: 0.5
-  },
-  downThreshold: {
-    type: Number,
-    default: 0.5
-  },
-  // 执行下次操作是否需要等卡片完全消失，默认非同步操作
-  sync: {
-    type: Boolean,
-    default: false
-  },
-  // 最大渲染数
-  max: {
-    type: Number,
-    default: 3
-  },
-  scaleStep: {
-    type: Number,
-    // default: 30
-    default: 0.05
-  },
-  offsetY: {
-    type: Number,
-    default: 0
-  },
-  offsetUnit: {
-    type: String,
-    default: 'px'
-  }
-})
+type TinderProps = {
+  allowSuperLike?: boolean;
+  allowDown?: boolean;
+  queue: Array<Record<string, any>>;
+  keyName?: string;
+  pointerThreshold?: number;
+  superThreshold?: number;
+  downThreshold?: number;
+  sync?: boolean;
+  max?: number;
+  scaleStep?: number;
+  offsetY?: number;
+  offsetUnit?: string;
+};
+
+const { queue, allowDown } = defineProps<TinderProps>();
 
 const data = reactive({
   size: {
@@ -77,16 +32,14 @@ const data = reactive({
   state: initStatus(), // 此次触摸及移动坐标等状态
   list: [], // 实际使用的列表，用以与新列表比较，对新列表 item 做唯一处理，避免 dom 被重用
   tinderMounted: false
-});
+})
 
 
-// status() {
-//   return data.state.status //TODO use data.status
-// },
+
 // 在 x 轴上移动距离相对于卡片一半宽度的比例
 const ratio = computed(() => {
   if (data.size.width) {
-    const {start, move} = data.state
+    const { start, move } = data.state
     const x = move.x - start.x || 0
     const ratio = x / (data.size.width * 0.5)
     return ratio
@@ -99,14 +52,14 @@ const pointerOpacity = computed(() => {
   return this.ratio / this.pointerThreshold
 })
 const disY = computed(() => {
-  if (this.allowSuper || this.allowDown) {
+  if (this.allowSuperLike || this.allowDown) {
     return data.state.move.y - data.state.start.y
   }
   return 0
 })
 
 const superOpacity = computed(() => {
-  if (!this.allowSuper) {
+  if (!this.allowSuperLike) {
     return 0
   }
   const ratio = this.disY / (-this.superThreshold * data.size.height)
@@ -150,16 +103,16 @@ onMounted(() => {
     width: this.$el.offsetWidth,
     height: this.$el.offsetHeight
   }
-  window.onresize = this.getSize
-  this.tinderMounted = true
+  window.onresize = getSize
+  data.tinderMounted = true
 })
 
 onBeforeMount(() => {
-  data.list = this.queue.slice(0)
+  data.list = queue.slice(0)
 })
 
 onMounted(() => {
-  window.removeEventListener('onresize', this.getSize)
+  window.removeEventListener('onresize', getSize)
 })
 
 // 获取组件尺寸及位置，用以决定旋转角度、显示对应状态等
@@ -196,26 +149,24 @@ function resetStatus() {
       @mousemove.native="move"
       @mouseup.native="end"
   >
-    <template v-for="(item, index) in list">
+    <template v-for="(item, index) in data.list">
       <TinderCard
           v-if="index < max + 1"
           :ready="index === max"
           :key="item.$vtKey || item[keyName]"
           :data-id="item.$vtKey || item[keyName]"
           :index="index"
-          :state="state"
+          :state="data.state"
           :ratio="ratio"
-          :rewind="
-          rewindKeys.indexOf(item.$vtKey || item[keyName]) > -1 ? index : false
-        "
-          :tinder-mounted="tinderMounted"
+          :rewind="rewindKeys.indexOf(item.$vtKey || item[keyName]) > -1 ? index : false"
+          :tinder-mounted="data.tinderMounted"
           :scale-step="scaleStep"
           :offset-y="offsetY"
           :offset-unit="offsetUnit"
           @reverted="resetStatus"
       >
-        <slot :data="item" :index="index" :status="status"></slot>
-        <template v-if="index === 0 && status !== 2">
+        <slot :data="item" :index="index" :status="data.state.status"></slot>
+        <template v-if="index === 0 && data.state.status !== 2">
           <span
               slot="nope"
               class="pointer-wrap nope-pointer-wrap"
@@ -231,7 +182,7 @@ function resetStatus() {
             <slot name="like" :opacity="likeOpacity"/>
           </span>
           <span
-              v-if="allowSuper"
+              v-if="allowSuperLike"
               slot="super"
               class="pointer-wrap super-pointer-wrap"
               :style="{ opacity: superOpacity }"

@@ -7,10 +7,3 @@ export const initStatus = revert => ({
   result: null
 })
 
-export const STATUS = {
-  NORMAL: 0,
-  MOVING: 1,
-  LEAVING: 2,
-  REVERT: 3,
-  REWINDING: 4
-}

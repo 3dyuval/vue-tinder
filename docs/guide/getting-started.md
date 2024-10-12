@@ -51,7 +51,7 @@ export default {
 If you need to register `VueTinder` globally in your project, you can register it with the global method `Vue.use()` provided by Vue.js:
 
 ``` js
-// main.js or index.js
+// main.ts or index.js
 import VueTinder from 'vue-tinder'
 
 Vue.use(VueTinder)

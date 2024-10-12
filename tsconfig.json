@@ -29,7 +29,7 @@
     "skipLibCheck": true
   },
   "paths": {
-    "~/*": ["src/*"],
+    "@/*": ["src/*"],
     "img/*": ["public/images/*"]
   },
   "exclude": ["dist", "node_modules", "cypress"]
