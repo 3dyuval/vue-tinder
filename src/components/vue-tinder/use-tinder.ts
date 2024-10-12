@@ -2,8 +2,20 @@ import { reactive, ref } from 'vue';
 import { nanoid } from 'nanoid';
 
 
-type DecisionType = 'like' | 'nope' | 'super' | 'down';
-type QueueItem = Record<string, any>
+export type DecisionType = 'like' | 'nope' | 'super' | 'down';
+export type QueueItem = Record<string, any>
+
+export function initStatus(revert: boolean) {
+  return {
+    status: revert ? 3 : 0,
+    touchId: null,
+    start: {},
+    move: {},
+    startPoint: 1, // 手指落在卡片的上半部分（1），下半部分（-1）
+    result: null
+  }
+}
+
 
 export enum STATUS {
   NORMAL,
@@ -47,6 +59,8 @@ export function useTinder(initialQueue: Array<QueueItem>, keyName: string) {
   }
 
   const rewindKeys = ref([] as string[]);
+  const onceRewindCount = ref(0);
+
 
   function rewind(list: Array<QueueItem>) {
     list.forEach(item => {
@@ -62,6 +76,9 @@ export function useTinder(initialQueue: Array<QueueItem>, keyName: string) {
     const oldKeys = new Map(oldQueue.map(item => [item[keyName], item]));
     const newKeys = new Set(newQueue.map(item => item[keyName]));
 
+    // Track items to remove
+    const itemsToRemove = oldQueue.filter(item => !newKeys.has(item[keyName]));
+
     // Remove items not in the new list
     for (let i = 0; i < oldQueue.length; i++) {
       if (!newKeys.has(oldQueue[i][keyName])) {
@@ -70,15 +87,23 @@ export function useTinder(initialQueue: Array<QueueItem>, keyName: string) {
       }
     }
 
+    // Prepare for additions
+    const additions = newQueue.filter(item => !oldKeys.has(item[keyName]));
+    onceRewindCount.value = additions.length; // Track number of additions for rewind processing
+
     // Add new items
-    newQueue.forEach(item => {
-      if (!oldKeys.has(item[keyName])) {
-        queue.value.push(item);
-      } else {
-        // Re-assign a unique key if needed (e.g., for animation purposes)
-        item._vtKey = nanoid();
-      }
+    additions.forEach(item => {
+      item._vtKey = nanoid();
+      queue.value.push(item);
     });
+
+    // Handle rewinding state
+    if (onceRewindCount.value > 0) {
+      state.status = STATUS.REWINDING; // Update state if rewinds are necessary
+    }
+
+    // Reset count after updates
+    onceRewindCount.value = 0;
   }
 
 

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { STATUS } from './status'
+import { STATUS } from './use-tinder'
 import { computed, onMounted, reactive, watch } from "vue"
 
 type TinderCardProps = {
   tinderMounted: boolean;
   index: number;
-  created: any;  // Define the appropriate type if known
   ready?: boolean;
   state: Record<string, any>;
   ratio?: number;
@@ -15,7 +14,7 @@ type TinderCardProps = {
   offsetUnit: string;
 };
 
-const { index, created } = defineProps<TinderCardProps>();
+const { index } = defineProps<TinderCardProps>();
 
 const data = reactive({
   inited: false,
@@ -90,12 +89,12 @@ watch(() => index, (val, oldVal) => {
   }
 })
 
-watch(() => created, () => {
-  data.scopedRewind = this.rewind
-  if (!this.tinderMounted) {
-    data.inited = true
-  }
-})
+// watch(() => created, () => {
+//   data.scopedRewind = this.rewind
+//   if (!this.tinderMounted) {
+//     data.inited = true
+//   }
+// })
 
 onMounted(() => {
   // 必须要包裹 requestAnimationFrame，保证在 beforeEnter 执行之后
