@@ -7,7 +7,10 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
+      "img/*": ["public/images/*"],
+      "@/*": ["public/images/*"]
+
     },
     "resolveJsonModule": true,
     "types": [
@@ -27,10 +30,6 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "skipLibCheck": true
-  },
-  "paths": {
-    "@/*": ["src/*"],
-    "img/*": ["public/images/*"]
   },
   "exclude": ["dist", "node_modules", "cypress"]
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Tinder from '@/components/vue-tinder/Tinder.vue'
-import source from '@/bing'
+import source from '@/bing.json'
 import { onBeforeMount, reactive } from "vue"
 
 
