@@ -1,4 +1,4 @@
-import Tinder from './vue-tinder/Tinder.vue'
+import Tinder from './Tinder.vue'
 
 Tinder.install = Vue => {
   Vue.component('vue-tinder', Tinder)

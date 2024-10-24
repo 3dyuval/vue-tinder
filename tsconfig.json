@@ -1,35 +1,10 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "jsx": "preserve",
-    "lib": ["DOM", "ESNext"],
-    "baseUrl": ".",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "paths": {
-      "~/*": ["src/*"],
-      "img/*": ["public/images/*"],
-      "@/*": ["public/images/*"]
-
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
     },
-    "resolveJsonModule": true,
-    "types": [
-      "vitest",
-      "vite/client",
-      "vite-plugin-vue-layouts/client",
-      "vite-plugin-pwa/client",
-      "unplugin-vue-macros/macros-global",
-      "unplugin-vue-router/client"
-    ],
-    "allowJs": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "skipLibCheck": true
-  },
-  "exclude": ["dist", "node_modules", "cypress"]
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
 }

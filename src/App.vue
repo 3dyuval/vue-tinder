@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Tinder from '@/components/vue-tinder/Tinder.vue'
+import Tinder from '@/components/Tinder.vue'
 import source from '@/bing.json'
 import { onBeforeMount, reactive } from "vue"
 
@@ -69,7 +69,7 @@ async function decide(choice) {
         key-name="id"
         v-model:queue="data.queue"
         :max="3"
-        :offset-y="10"
+        :omeffset-y="10"
         allow-down
         @submit="onSubmit"
     >
@@ -81,18 +81,28 @@ async function decide(choice) {
           }"
         />
       </template>
-      <img class="like-pointer" slot="like" src="img/like-txt.png"/>
-      <img class="nope-pointer" slot="nope" src="img/nope-txt.png"/>
-      <img class="super-pointer" slot="super" src="img/super-txt.png"/>
-      <img class="down-pointer" slot="down" src="img/down-txt.png"/>
-      <img class="rewind-pointer" slot="rewind" src="img/rewind-txt.png"/>
+      <template #like>
+        <img class="like-pointer" src="img/like-txt.png" alt="like-pointer"/>
+      </template>
+      <template #nope>
+        <img class="nope-pointer" slot="nope" src="img/nope-txt.png" alt="nope-pointer"/>
+      </template>
+      <template #super>
+        <img class="super-pointer" slot="super" src="img/super-txt.png" alt="super-pointer"/>
+      </template>
+      <template #down>
+        <img class="down-pointer" slot="down" src="img/down-txt.png" alt="down-pointer"/>
+      </template>
+      <template #rewind>
+        <img class="rewind-pointer" slot="rewind" src="img/rewind-txt.png" alt="rewind-pointer"/>
+      </template>
     </Tinder>
     <div class="btns">
-      <img src="img/rewind.png" @click="decide('rewind')"/>
-      <img src="img/nope.png" @click="decide('nope')"/>
-      <img src="img/super-like.png" @click="decide('super')"/>
-      <img src="img/like.png" @click="decide('like')"/>
-      <img src="img/help.png" @click="decide('help')"/>
+      <img src="img/rewind.png" @click="decide('rewind')" alt="rewind"/>
+      <img src="img/nope.png" @click="decide('nope')" alt="nope"/>
+      <img src="img/super-like.png" @click="decide('super')" alt="super"/>
+      <img src="img/like.png" @click="decide('like')" alt="like"/>
+      <img src="img/help.png" @click="decide('help')" alt="help"/>
     </div>
   </div>
 </template>
