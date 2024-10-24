@@ -73,11 +73,11 @@ async function decide(choice) {
         allow-down
         @submit="onSubmit"
     >
-      <template v-slot="scope">
+      <template #default="{ item }">
         <div
             class="pic"
             :style="{
-            'background-image': `url(https://cn.bing.com//th?id=OHR.${scope.data.id}_UHD.jpg&pid=hp&w=720&h=1280&rs=1&c=4&r=0)`
+            'background-image': `url(https://cn.bing.com//th?id=OHR.${item.id}_UHD.jpg&pid=hp&w=720&h=1280&rs=1&c=4&r=0)`
           }"
         />
       </template>
