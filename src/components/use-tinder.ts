@@ -2,10 +2,10 @@ import { reactive, ref } from 'vue';
 import { nanoid } from 'nanoid';
 
 
-export type DecisionType = 'like' | 'nope' | 'super' | 'down';
+export type DecisionType = 'like' | 'nope' | 'super' | 'down' | 'rewind' | 'help';
 export type QueueItem = Record<string, any>
 
-export function initStatus(revert: boolean) {
+export function initState(revert: boolean) {
   return {
     status: revert ? 3 : 0,
     touchId: null,

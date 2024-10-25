@@ -10,10 +10,10 @@ First, we need to add a button that can be clicked on the Rewind operation. To m
 <vue-tinder :queue.sync="queue" @submit="onSubmit">
   ...
   ...
-  <img slot="rewind" src="img/rewind-txt.png" />
+  <img slot="rewind" src="assets/images/rewind-txt.png" />
 </vue-tinder>
 
-<img src="img/rewind.png" @click="decide('rewind')">
+<img src="assets/images/rewind.png" @click="decide('rewind')">
 ```
 
 Then write the core code for this example:

@@ -20,9 +20,9 @@ First, we need to write a template with the following content (the code that is 
       'background-image': `url(https://cn.bing.com//th?id=OHR.${scope.data.id}_UHD.jpg&pid=hp&w=720&h=1280&rs=1&c=4&r=0)`
     }"
   />
-  <img slot="like" src="img/like-txt.png" />
-  <img slot="nope" src="img/nope-txt.png" />
-  <img slot="super" src="img/super-txt.png" />
+  <img slot="like" src="assets/images/like-txt.png" />
+  <img slot="nope" src="assets/images/nope-txt.png" />
+  <img slot="super" src="assets/images/super-txt.png" />
 </vue-tinder>
 ```
 

@@ -2,6 +2,7 @@
 import Tinder from '@/components/Tinder.vue'
 import source from '@/bing.json'
 import { onBeforeMount, reactive } from "vue"
+import { DecisionType } from "@/components/use-tinder"
 
 
 const data = reactive({
@@ -14,52 +15,56 @@ onBeforeMount(mock)
 
 
 function mock(count = 5, append = true) {
-  const list = []
+  const list = [] as any[]
   for (let i = 0; i < count; i++) {
-    list.push({ id: source[this.offset] })
-    this.offset++
+    list.push({ id: source[data.offset] })
+    data.offset++
   }
   if (append) {
-    this.queue = this.queue.concat(list)
+    data.queue = data.queue.concat(list)
   } else {
-    this.queue.unshift(...list)
+    data.queue.unshift(...list)
   }
 }
 
-function onSubmit({ item }) {
-  if (this.queue.length < 3) {
-    this.mock()
+function onSubmit({ item }: any) {
+  if (data.queue.length < 3) {
+    mock()
   }
-  this.history.push(item)
+  data.history.push(item)
 }
 
-async function decide(choice) {
+async function decide(choice: DecisionType) {
   if (choice === 'rewind') {
-    if (this.history.length) {
+    if (data.history.length) {
       //一个个 rewind
-      // this.$refs.tinder.rewind([this.history.pop()])
+      // data.$refs.tinder.rewind([data.history.pop()])
       // 一次性 rewind 全部
-      // this.$refs.tinder.rewind(this.history)
-      // this.history = []
+      // data.$refs.tinder.rewind(data.history)
+      // data.history = []
       // 一次随机 rewind 多个
-      this.$refs.tinder.rewind(
-          this.history.splice(-Math.ceil(Math.random() * 3))
+      data.$refs.tinder.rewind(
+          data.history.splice(-Math.ceil(Math.random() * 3))
       )
       // 非 api调用的添加
-      // this.queue.unshift(this.history.pop())
-      // this.queue.push(this.history.pop())
+      // data.queue.unshift(data.history.pop())
+      // data.queue.push(data.history.pop())
       // 非头部添加
-      // this.queue.splice(1, 0, this.history.pop())
+      // data.queue.splice(1, 0, data.history.pop())
       // 一次性 rewind 多个，并且含有非头部添加的 item
-      // this.queue.unshift(this.history.pop())
-      // this.queue.unshift(...this.history)
+      // data.queue.unshift(data.history.pop())
+      // data.queue.unshift(...data.history)
     }
   } else if (choice === 'help') {
     //
   } else {
-    this.$refs.tinder.decide(choice)
+    data.$refs.tinder.decide(choice)
   }
 }
+//
+// function decide(choice: DecisionType) {
+//   console.log(choice)
+// }
 
 </script>
 <template>
@@ -82,27 +87,27 @@ async function decide(choice) {
         />
       </template>
       <template #like>
-        <img class="like-pointer" src="img/like-txt.png" alt="like-pointer"/>
+        <img class="like-pointer" src="./assets/images/like-txt.png" alt="like-pointer"/>
       </template>
       <template #nope>
-        <img class="nope-pointer" slot="nope" src="img/nope-txt.png" alt="nope-pointer"/>
+        <img class="nope-pointer" slot="nope" src="./assets/images/nope-txt.png" alt="nope-pointer"/>
       </template>
       <template #super>
-        <img class="super-pointer" slot="super" src="img/super-txt.png" alt="super-pointer"/>
+        <img class="super-pointer" slot="super" src="./assets/images/super-txt.png" alt="super-pointer"/>
       </template>
       <template #down>
-        <img class="down-pointer" slot="down" src="img/down-txt.png" alt="down-pointer"/>
+        <img class="down-pointer" slot="down" src="./assets/images/down-txt.png" alt="down-pointer"/>
       </template>
       <template #rewind>
-        <img class="rewind-pointer" slot="rewind" src="img/rewind-txt.png" alt="rewind-pointer"/>
+        <img class="rewind-pointer" slot="rewind" src="./assets/images/rewind-txt.png" alt="rewind-pointer"/>
       </template>
     </Tinder>
     <div class="btns">
-      <img src="img/rewind.png" @click="decide('rewind')" alt="rewind"/>
-      <img src="img/nope.png" @click="decide('nope')" alt="nope"/>
-      <img src="img/super-like.png" @click="decide('super')" alt="super"/>
-      <img src="img/like.png" @click="decide('like')" alt="like"/>
-      <img src="img/help.png" @click="decide('help')" alt="help"/>
+      <img src="./assets/images/rewind.png" @click="decide('rewind')" alt="rewind"/>
+      <img src="./assets/images/nope.png" @click="decide('nope')" alt="nope"/>
+      <img src="./assets/images/super-like.png" @click="decide('super')" alt="super"/>
+      <img src="./assets/images/like.png" @click="decide('like')" alt="like"/>
+      <img src="./assets/images/help.png" @click="decide('help')" alt="help"/>
     </div>
   </div>
 </template>

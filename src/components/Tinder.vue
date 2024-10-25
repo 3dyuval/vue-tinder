@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TinderCard from './TinderCard.vue';
-import { initStatus } from './status';
+import { initState } from './use-tinder';
 import { computed, onMounted, reactive, watch } from 'vue';
 
 // Define props
@@ -26,7 +26,7 @@ const data = reactive({
     width: 0,
     height: 0
   },
-  state: initStatus(),
+  state: initState(),
   list: [] as Array<Record<string, any>>,
   tinderMounted: false
 });

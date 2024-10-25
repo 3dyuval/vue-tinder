@@ -1,6 +1,7 @@
-import { defineConfig, UserConfig } from 'vite'
+import { defineConfig, PluginOption, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { fileURLToPath, URL } from 'node:url'
+import { resolve } from 'node:path'
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [vue()],
@@ -9,7 +10,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@/': `${resolve(__dirname, 'src')}/`
     }
   },
   build: {

@@ -10,10 +10,10 @@
 <vue-tinder :queue.sync="queue" @submit="onSubmit">
   ...
   ...
-  <img slot="rewind" src="img/rewind-txt.png" />
+  <img slot="rewind" src="assets/images/rewind-txt.png" />
 </vue-tinder>
 
-<img src="img/rewind.png" @click="decide('rewind')">
+<img src="assets/images/rewind.png" @click="decide('rewind')">
 ```
 
 然后编写本例的核心代码：
