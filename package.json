@@ -1,0 +1,43 @@
+{
+  "name": "vue-tinder",
+  "version": "3.0.0",
+  "description": "Imitate Tinder by Vue.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "type": "module",
+  "keywords": [
+    "tinder",
+    "vue"
+  ],
+  "homepage": "https://github.com/shanlh/vue-tinder",
+  "license": "MIT",
+  "devDependencies": {
+    "nanoid": "^5.0.7",
+    "vite-tsconfig-paths": "^5.0.1",
+    "vue": "^3.5.12"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "dependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@vitejs/plugin-vue": "^5",
+    "@vue/tsconfig": "^0.5.1",
+    "autoprefixer": "^10.4.20",
+    "eslint-plugin-vue": "^9.29.1",
+    "vite": "^5"
+  }
+}
