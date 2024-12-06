@@ -13,10 +13,12 @@ const data = reactive({
 })
 
 watch(data, (value) => {
-  console.debug('App.data', ...value)
-})
+  console.debug('data', ...value)
+}, { deep: true })
 
-onMounted((count = 5, append = true) => {
+onMounted(mockData)
+
+function mockData (count = 5, append = true)  {
   const list = []
   for (let i = 0; i < count; i++) {
     list.push({ id: source[data.offset] })
@@ -27,19 +29,19 @@ onMounted((count = 5, append = true) => {
   } else {
     data.queue.unshift(...list)
   }
-})
+}
 
 function onSubmit({ item }) {
   console.debug('onSubmit', item)
   if (data.queue.length < 3) {
-    data.mock()
+    mockData()
   }
   data.history.push(item)
 }
 
-async function onDecide(choice) {
+async function decide(choice) {
   if (choice === 'rewind') {
-    console.debug('onDecide.rewind')
+    console.debug('decide.rewind')
     if (data.history.length) {
       //一个个 rewind
       // tinder.value.rewind([data.history.pop()])
@@ -62,7 +64,7 @@ async function onDecide(choice) {
   } else if (choice === 'help') {
     //
   } else {
-    tinder.value?.onDecide(choice)
+    tinder.value?.decide(choice)
   }
 }
 
@@ -106,11 +108,11 @@ async function onDecide(choice) {
       </template>
     </Tinder>
     <div class="btns">
-      <img src="./assets/rewind.png" @click="onDecide('rewind')" alt="rewind"/>
-      <img src="./assets/nope.png" @click="onDecide('nope')" alt="nope"/>
-      <img src="./assets/super-like.png" @click="onDecide('super')" alt="super"/>
-      <img src="./assets/like.png" @click="onDecide('like')" alt="like"/>
-      <img src="./assets/help.png" @click="onDecide('help')" alt="help"/>
+      <img src="./assets/rewind.png" @click="decide('rewind')" alt="rewind"/>
+      <img src="./assets/nope.png" @click="decide('nope')" alt="nope"/>
+      <img src="./assets/super-like.png" @click="decide('super')" alt="super"/>
+      <img src="./assets/like.png" @click="decide('like')" alt="like"/>
+      <img src="./assets/help.png" @click="decide('help')" alt="help"/>
     </div>
   </div>
 </template>

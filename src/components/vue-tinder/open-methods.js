@@ -9,7 +9,8 @@ export default {
          * 点击按钮做选择
          * @param {String} type like：喜欢，nope：不喜欢，super：超喜欢，down：向下
          */
-        onDecide(type) {
+        decide(type) {
+            console.debug('open-methods.decide', type)
             if (this.state.touchId || this.status !== STATUS.NORMAL) {
                 console.debug('decide.stopped')
                 return
