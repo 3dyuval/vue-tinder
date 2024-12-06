@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Tinder from '@/components/vue-tinder/Tinder.vue'
 import source from '@/bing'
-import { onMounted, reactive, ref } from "vue"
+import { onMounted, reactive, ref, watch } from "vue"
 
 
 const tinder = ref<InstanceType<typeof Tinder>>()
@@ -10,6 +10,10 @@ const data = reactive({
   queue: [],
   offset: 0,
   history: []
+})
+
+watch(data, (value) => {
+  console.debug('App.data', ...value)
 })
 
 onMounted((count = 5, append = true) => {
@@ -26,14 +30,16 @@ onMounted((count = 5, append = true) => {
 })
 
 function onSubmit({ item }) {
+  console.debug('onSubmit', item)
   if (data.queue.length < 3) {
     data.mock()
   }
   data.history.push(item)
 }
 
-async function decide(choice) {
+async function onDecide(choice) {
   if (choice === 'rewind') {
+    console.debug('onDecide.rewind')
     if (data.history.length) {
       //一个个 rewind
       // tinder.value.rewind([data.history.pop()])
@@ -56,7 +62,7 @@ async function decide(choice) {
   } else if (choice === 'help') {
     //
   } else {
-    tinder.value.decide(choice)
+    tinder.value?.onDecide(choice)
   }
 }
 
@@ -100,11 +106,11 @@ async function decide(choice) {
       </template>
     </Tinder>
     <div class="btns">
-      <img src="./assets/rewind.png" @click="decide('rewind')" alt="rewind"/>
-      <img src="./assets/nope.png" @click="decide('nope')" alt="nope"/>
-      <img src="./assets/super-like.png" @click="decide('super')" alt="super"/>
-      <img src="./assets/like.png" @click="decide('like')" alt="like"/>
-      <img src="./assets/help.png" @click="decide('help')" alt="help"/>
+      <img src="./assets/rewind.png" @click="onDecide('rewind')" alt="rewind"/>
+      <img src="./assets/nope.png" @click="onDecide('nope')" alt="nope"/>
+      <img src="./assets/super-like.png" @click="onDecide('super')" alt="super"/>
+      <img src="./assets/like.png" @click="onDecide('like')" alt="like"/>
+      <img src="./assets/help.png" @click="onDecide('help')" alt="help"/>
     </div>
   </div>
 </template>

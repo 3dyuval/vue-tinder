@@ -218,6 +218,7 @@ export default {
   },
   watch: {
     queue(val) {
+      console.debug('Tinder.queue', val)
       const keyName = this.keyName
       const newKeys = val.map(item => item[keyName])
       const oldKeys = this.list.map(item => item[keyName])
@@ -227,7 +228,7 @@ export default {
   mounted() {
     if (!this.$el.offsetWidth || !this.$el.offsetHeight) {
       /* eslint-disable-next-line */
-      console.error('请设置vue-tinder的宽高');
+      console.error('mounted.error: please set the width and height of vue-tinder');
       return
     }
     this.size = {
@@ -248,6 +249,7 @@ export default {
     // 获取组件尺寸及位置，用以决定旋转角度、显示对应状态等
     getSize() {
       clearInterval(resizeTimer)
+      console.debug('Tinder.getSize.resetInterval')
       resizeTimer = setTimeout(() => {
         this.size = {
           top: this.$el.offsetTop,
@@ -258,6 +260,7 @@ export default {
     },
     // 当前卡片已经离开
     resetStatus() {
+      console.debug('Tinder.resetStatus')
       this.state = initStatus()
     }
   }

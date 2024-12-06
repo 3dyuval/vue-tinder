@@ -29,6 +29,7 @@ export default {
      * @param {Array} old
      */
     diff(list, old) {
+      console.debug('queue-handle.diff', list, old)
       // 新增或 rewind
       const keyName = this.keyName
       const add = difference(list, old)
