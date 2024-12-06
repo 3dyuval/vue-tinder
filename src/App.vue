@@ -1,102 +1,113 @@
+<script setup lang="ts">
+import Tinder from '@/components/vue-tinder/Tinder.vue'
+import source from '@/bing'
+import { onMounted, reactive, ref } from "vue"
+
+
+const tinder = ref<InstanceType<typeof Tinder>>()
+
+const data = reactive({
+  queue: [],
+  offset: 0,
+  history: []
+})
+
+onMounted((count = 5, append = true) => {
+  const list = []
+  for (let i = 0; i < count; i++) {
+    list.push({ id: source[data.offset] })
+    data.offset++
+  }
+  if (append) {
+    data.queue = data.queue.concat(list)
+  } else {
+    data.queue.unshift(...list)
+  }
+})
+
+function onSubmit({ item }) {
+  if (data.queue.length < 3) {
+    data.mock()
+  }
+  data.history.push(item)
+}
+
+async function decide(choice) {
+  if (choice === 'rewind') {
+    if (data.history.length) {
+      //一个个 rewind
+      // tinder.value.rewind([data.history.pop()])
+      // 一次性 rewind 全部
+      // tinder.value.rewind(data.history)
+      // data.history = []
+      // 一次随机 rewind 多个
+      tinder.value.rewind(
+          data.history.splice(-Math.ceil(Math.random() * 3))
+      )
+      // 非 api调用的添加
+      // data.queue.unshift(data.history.pop())
+      // data.queue.push(data.history.pop())
+      // 非头部添加
+      // data.queue.splice(1, 0, data.history.pop())
+      // 一次性 rewind 多个，并且含有非头部添加的 item
+      // data.queue.unshift(data.history.pop())
+      // data.queue.unshift(...data.history)
+    }
+  } else if (choice === 'help') {
+    //
+  } else {
+    tinder.value.decide(choice)
+  }
+}
+
+
+
+</script>
+
 <template>
   <div id="app">
     <Tinder
-      ref="tinder"
-      key-name="id"
-      :queue.sync="queue"
-      :max="3"
-      :offset-y="10"
-      allow-down
-      @submit="onSubmit"
+        ref="tinder"
+        key-name="id"
+        v-model:queue="data.queue"
+        :max="3"
+        :omeffset-y="10"
+        allow-down
+        @submit="onSubmit"
     >
-      <template slot-scope="scope">
+      <template #default="{ item }">
         <div
-          class="pic"
-          :style="{
-            'background-image': `url(https://cn.bing.com//th?id=OHR.${scope.data.id}_UHD.jpg&pid=hp&w=720&h=1280&rs=1&c=4&r=0)`
+            class="pic"
+            :style="{
+            'background-image': `url(https://cn.bing.com//th?id=OHR.${item.id}_UHD.jpg&pid=hp&w=720&h=1280&rs=1&c=4&r=0)`
           }"
         />
       </template>
-      <img class="like-pointer" slot="like" src="@/assets/like-txt.png" />
-      <img class="nope-pointer" slot="nope" src="@/assets/nope-txt.png" />
-      <img class="super-pointer" slot="super" src="@/assets/super-txt.png" />
-      <img class="down-pointer" slot="down" src="@/assets/down-txt.png" />
-      <img class="rewind-pointer" slot="rewind" src="@/assets/rewind-txt.png" />
+      <template #like>
+        <img class="like-pointer" src="./assets/like-txt.png" alt="like-pointer"/>
+      </template>
+      <template #nope>
+        <img class="nope-pointer" slot="nope" src="./assets/nope-txt.png" alt="nope-pointer"/>
+      </template>
+      <template #super>
+        <img class="super-pointer" slot="super" src="./assets/super-txt.png" alt="super-pointer"/>
+      </template>
+      <template #down>
+        <img class="down-pointer" slot="down" src="./assets/down-txt.png" alt="down-pointer"/>
+      </template>
+      <template #rewind>
+        <img class="rewind-pointer" slot="rewind" src="./assets/rewind-txt.png" alt="rewind-pointer"/>
+      </template>
     </Tinder>
     <div class="btns">
-      <img src="@/assets/rewind.png" @click="decide('rewind')" />
-      <img src="@/assets/nope.png" @click="decide('nope')" />
-      <img src="@/assets/super-like.png" @click="decide('super')" />
-      <img src="@/assets/like.png" @click="decide('like')" />
-      <img src="@/assets/help.png" @click="decide('help')" />
+      <img src="./assets/rewind.png" @click="decide('rewind')" alt="rewind"/>
+      <img src="./assets/nope.png" @click="decide('nope')" alt="nope"/>
+      <img src="./assets/super-like.png" @click="decide('super')" alt="super"/>
+      <img src="./assets/like.png" @click="decide('like')" alt="like"/>
+      <img src="./assets/help.png" @click="decide('help')" alt="help"/>
     </div>
   </div>
 </template>
-
-<script>
-import Tinder from '@/components/vue-tinder/Tinder.vue'
-import source from '@/bing'
-
-export default {
-  name: 'App',
-  components: { Tinder },
-  data: () => ({
-    queue: [],
-    offset: 0,
-    history: []
-  }),
-  created() {
-    this.mock()
-  },
-  methods: {
-    mock(count = 5, append = true) {
-      const list = []
-      for (let i = 0; i < count; i++) {
-        list.push({ id: source[this.offset] })
-        this.offset++
-      }
-      if (append) {
-        this.queue = this.queue.concat(list)
-      } else {
-        this.queue.unshift(...list)
-      }
-    },
-    onSubmit({ item }) {
-      if (this.queue.length < 3) {
-        this.mock()
-      }
-      this.history.push(item)
-    },
-    async decide(choice) {
-      if (choice === 'rewind') {
-        if (this.history.length) {
-          //一个个 rewind
-          // this.$refs.tinder.rewind([this.history.pop()])
-          // 一次性 rewind 全部
-          // this.$refs.tinder.rewind(this.history)
-          // this.history = []
-          // 一次随机 rewind 多个
-          this.$refs.tinder.rewind(
-            this.history.splice(-Math.ceil(Math.random() * 3))
-          )
-          // 非 api调用的添加
-          // this.queue.unshift(this.history.pop())
-          // this.queue.push(this.history.pop())
-          // 非头部添加
-          // this.queue.splice(1, 0, this.history.pop())
-          // 一次性 rewind 多个，并且含有非头部添加的 item
-          // this.queue.unshift(this.history.pop())
-          // this.queue.unshift(...this.history)
-        }
-      } else if (choice === 'help') {
-        //
-      } else {
-        this.$refs.tinder.decide(choice)
-      }
-    }
-  }
-}
-</script>
 
 <style>
 html,

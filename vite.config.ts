@@ -1,7 +1,6 @@
 import { defineConfig, PluginOption, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'node:path'
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [vue()],

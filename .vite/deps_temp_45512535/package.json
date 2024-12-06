@@ -1,0 +1,83 @@
+{
+  "name": "vue-tinder",
+  "version": "2.0.2",
+  "description": "Imitate Tinder by Vue.js",
+  "main": "lib/vue-tinder.js",
+  "author": {
+    "name": "JohnnyDan",
+    "email": "shanlh841271734@live.com"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "rollup -c rollup.config.js",
+    "lint": "lint",
+    "release": "bash release.sh",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:deploy": "bash deploy_docs.sh"
+  },
+  "keywords": [
+    "tinder",
+    "tantan",
+    "vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shanlh/vue-tinder.git"
+  },
+  "homepage": "https://github.com/shanlh/vue-tinder",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^22.10.1",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "nanoid": "^5.0.7",
+    "vite": "^5.4.8",
+    "vue": "^3.5.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-eslint": "^3.8.0",
+    "@vue/cli-service": "^3.8.0",
+    "@vue/eslint-config-prettier": "^4.0.1",
+    "@vuepress/plugin-google-analytics": "^1.2.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-uglify": "^6.0.3",
+    "rollup-plugin-vue": "^5.0.1",
+    "vuepress": "^1.2.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/strongly-recommended",
+      "@vue/prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error",
+      "no-console": 1
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

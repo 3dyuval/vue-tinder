@@ -31,7 +31,7 @@
         :offset-unit="offsetUnit"
         @reverted="resetStatus"
       >
-        <slot :data="item" :index="index" :status="status"></slot>
+        <slot :item="item" :index="index" :status="status"></slot>
         <template v-if="index === 0 && status !== 2">
           <span
             slot="nope"
