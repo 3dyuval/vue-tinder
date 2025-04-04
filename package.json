@@ -1,25 +1,40 @@
 {
   "name": "vue-tinder",
-  "version": "2.0.2",
-  "description": "Imitate Tinder by Vue.js",
-  "main": "lib/vue-tinder.js",
+  "version": "3.0.0",
+  "description": "Tinder-like card swiping component for Vue 3",
+  "type": "module",
+  "main": "dist/vue-tinder.js",
+  "module": "dist/vue-tinder.mjs",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-tinder.mjs",
+      "require": "./dist/vue-tinder.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "author": {
     "name": "JohnnyDan",
     "email": "shanlh841271734@live.com"
   },
+  "contributors": [],
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "rollup -c rollup.config.js",
-    "lint": "vue-cli-service lint",
-    "release": "bash release.sh",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "docs:deploy": "bash deploy_docs.sh"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.ts",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "keywords": [
     "tinder",
     "tantan",
-    "vue"
+    "vue",
+    "vue3",
+    "composables"
   ],
   "repository": {
     "type": "git",
@@ -28,53 +43,17 @@
   "homepage": "https://github.com/shanlh/vue-tinder",
   "license": "MIT",
   "dependencies": {
-    "vue": "^2.6.10"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-plugin-eslint": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
-    "@vue/eslint-config-prettier": "^4.0.1",
-    "@vuepress/plugin-google-analytics": "^1.2.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-uglify": "^6.0.3",
-    "rollup-plugin-vue": "^5.0.1",
-    "vue-template-compiler": "^2.6.10",
-    "vuepress": "^1.2.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/strongly-recommended",
-      "@vue/prettier"
-    ],
-    "rules": {
-      "prettier/prettier": "error",
-      "no-console": 1
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-vue": "^9.15.1",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.6",
+    "vite-plugin-dts": "^3.3.1",
+    "vitepress": "^1.0.0-rc.4"
+  }
 }
