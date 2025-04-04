@@ -25,6 +25,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:cucumber": "vitest --config vitest.config.js tests/steps",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -46,14 +50,22 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^10.0.1",
+    "@testing-library/vue": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-vue": "^4.2.3",
+    "@vitest/coverage-v8": "^1.1.0",
+    "@vitest/ui": "^1.1.0",
+    "@vue/test-utils": "^2.4.1",
     "eslint": "^8.45.0",
     "eslint-plugin-vue": "^9.15.1",
+    "jsdom": "^23.0.1",
     "typescript": "^5.1.6",
     "vite": "^4.4.6",
     "vite-plugin-dts": "^3.3.1",
-    "vitepress": "^1.0.0-rc.4"
+    "vitepress": "^1.0.0-rc.4",
+    "vitest": "^1.1.0",
+    "@amiceli/vitest-cucumber": "beta: 4.6.0-beta.2"
   }
 }
