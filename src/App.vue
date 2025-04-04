@@ -9,33 +9,43 @@
       allow-down
       @submit="onSubmit"
     >
-      <template slot-scope="scope">
+      <template #default="slotProps">
         <div
           class="pic"
           :style="{
-            'background-image': `url(https://cn.bing.com//th?id=OHR.${scope.data.id}_UHD.jpg&pid=hp&w=720&h=1280&rs=1&c=4&r=0)`
+            'background-image': `url(https://cn.bing.com//th?id=OHR.${slotProps.data.id}_UHD.jpg&pid=hp&w=720&h=1280&rs=1&c=4&r=0)`
           }"
         />
       </template>
-      <img class="like-pointer" slot="like" src="~img/like-txt.png" />
-      <img class="nope-pointer" slot="nope" src="~img/nope-txt.png" />
-      <img class="super-pointer" slot="super" src="~img/super-txt.png" />
-      <img class="down-pointer" slot="down" src="~img/down-txt.png" />
-      <img class="rewind-pointer" slot="rewind" src="~img/rewind-txt.png" />
+      <template #like>
+        <img class="like-pointer" src="./assets/images/like-txt.png" alt="like-pointer"/>
+      </template>
+      <template #nope>
+        <img class="nope-pointer" slot="nope" src="./assets/images/nope-txt.png" alt="nope-pointer"/>
+      </template>
+      <template #super>
+        <img class="super-pointer" slot="super" src="./assets/images/super-txt.png" alt="super-pointer"/>
+      </template>
+      <template #down>
+        <img class="down-pointer" slot="down" src="./assets/images/down-txt.png" alt="down-pointer"/>
+      </template>
+      <template #rewind>
+        <img class="rewind-pointer" slot="rewind" src="./assets/images/rewind-txt.png" alt="rewind-pointer"/>
+      </template>
     </Tinder>
     <div class="btns">
-      <img src="~img/rewind.png" @click="decide('rewind')" />
-      <img src="~img/nope.png" @click="decide('nope')" />
-      <img src="~img/super-like.png" @click="decide('super')" />
-      <img src="~img/like.png" @click="decide('like')" />
-      <img src="~img/help.png" @click="decide('help')" />
+      <img src="./assets/images/rewind.png" @click="decide('rewind')" alt="rewind"/>
+      <img src="./assets/images/nope.png" @click="decide('nope')" alt="nope"/>
+      <img src="./assets/images/super-like.png" @click="decide('super')" alt="super"/>
+      <img src="./assets/images/like.png" @click="decide('like')" alt="like"/>
+      <img src="./assets/images/help.png" @click="decide('help')" alt="help"/>
     </div>
   </div>
 </template>
 
 <script>
-import Tinder from '@/components/vue-tinder/Tinder.vue'
-import source from '@/bing'
+import Tinder from './components/vue-tinder/Tinder.vue'
+import source from './bing'
 
 export default {
   name: 'App',

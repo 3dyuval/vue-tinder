@@ -2,8 +2,8 @@
   "name": "vue-tinder",
   "version": "3.0.0",
   "description": "Tinder-like card swiping component for Vue 3",
-  "type": "module",
   "main": "dist/vue-tinder.js",
+  "type": "module",
   "module": "dist/vue-tinder.mjs",
   "types": "dist/types/index.d.ts",
   "exports": {
@@ -28,7 +28,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:cucumber": "vitest --config vitest.config.js tests/steps",
+    "test:cucumber": "vitest --config vitest.config.js __tests__/steps",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -50,6 +50,7 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@amiceli/vitest-cucumber": "4.7.0",
     "@cucumber/cucumber": "^10.0.1",
     "@testing-library/vue": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
@@ -62,10 +63,9 @@
     "eslint-plugin-vue": "^9.15.1",
     "jsdom": "^23.0.1",
     "typescript": "^5.1.6",
-    "vite": "^4.4.6",
+    "vite": "^6.2.5",
     "vite-plugin-dts": "^3.3.1",
     "vitepress": "^1.0.0-rc.4",
-    "vitest": "^1.1.0",
-    "@amiceli/vitest-cucumber": "beta: 4.6.0-beta.2"
+    "vitest": "^3.1.1"
   }
 }
