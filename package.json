@@ -47,6 +47,7 @@
   "homepage": "https://github.com/shanlh/vue-tinder",
   "license": "MIT",
   "dependencies": {
+    "@floating-ui/core": "^1.6.9",
     "vue": "^3.3.4"
   },
   "devDependencies": {
